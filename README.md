@@ -1,5 +1,5 @@
 
-Table of Contents
+目录
 =================
 
    * [自我介绍](#自我介绍)
@@ -126,16 +126,7 @@ Table of Contents
    * [其他](#其他)
    * [原因](#原因)
 
-Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
-
-# 自我介绍
-
-# php
-## ngx php-fpm通信
-## php7 特性,优化点
-## hash 结构实现方式
-## 垃圾回收
-
+# 欢迎大家纠错和补充
 
 # go
 
