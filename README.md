@@ -17,6 +17,7 @@
       * [slice](#slice)
          * [数组](#数组)
          * [切片](#切片)
+	 * [线程安全](#线程安全)
       * [new 和 make](#new-和-make)
       * [调度器](#调度器)
          * [G-P-M模型](#g-p-m模型)
@@ -243,8 +244,6 @@ close: panic:send on closed channel
 2. 当新增后的长度大于当前容量，小于1024个长度，新的容量是当前容量的2倍。
 3. 当新增后长度大于1024，容量循环增加当前容量的四分之一。直到大于新增后的长度。
 
-
-
 ```
 slice = make([]int64, len, cap)
 
@@ -276,6 +275,26 @@ num2 := copy(d, a[1:3])
 fmt.Println(num2, d)
 //1 [11 0 0]
 
+```
+
+### 线程安全
+参考
+> https://zhuanlan.zhihu.com/p/42006586
+
+```
+线程A， list=append(list,1) ，这时候 list={1}，那么新的list就是list={1,1}
+线程B， list=append(list,1) ，这时候 list={1}，那么新的list就是list={1,1}
+
+发现了没有，线程A和线程B是同时运行（多核并行运算），而且拿到的list变量也是完全一样的值，那么各自计算之后，更新list的值也是完全一样。
+不论是线程A先写入内存，还是线程B先写入内存，肯定就有一次写入会覆盖之前一次写入，最终的结果是list={1,1}，而不是list={1,1,1}。
+上面就是因为线程不安全，导致少写入了一个数据。
+
+再看下加锁的情况下，为什么就安全了呢？
+我们再来思考下：
+线程A， lock, list=append(list,1), unlock ，这时候 list={1}，那么新的list就是 list={1,1}
+线程B， lock/等待, list=append(list,1), unlock , 这时候 list={1,1}，那么新的list就是 list={1,1,1}
+因为append的前后有一个加锁、解锁的指令，这样就避免了多线程同时并行执行 list=append(list,1) 的操作。
+不存在并行运算，那么并发操作也就是安全了。
 ```
 
 ## new 和 make
