@@ -215,7 +215,7 @@ close: 正常
 
 close状态
 input<-: panic:send on closed channel
-<-output: 正常，都输出0
+<-output: 正常，都输出类型的初始值（int:0,string:空）
 range/select: 同output
 close: panic:send on closed channel
 
