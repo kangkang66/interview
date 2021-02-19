@@ -250,6 +250,7 @@ slice = make([]int64, len, cap)
 //注意: [startIndex:endIndex]. 
 0. 0 <= startIndex <= endIndex <= len(slice)
 1.实际赋值的数据长度为endIndex - startIndex
+2. 从索引 startIndex(包含) 到索引 endIndex(不包含) 
 
 a := []int64{1, 2, 3, 4, 5}
 b := a[3:5]
