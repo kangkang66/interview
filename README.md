@@ -250,12 +250,12 @@ slice = make([]int64, len, cap)
 //注意: [startIndex:endIndex]. 
 0. 0 <= startIndex <= endIndex <= len(slice)
 1.实际赋值的数据长度为endIndex - startIndex
-2. 从索引 startIndex(包含) 到索引 endIndex(不包含) 
+例如：
 
-a := []int64{1, 2, 3, 4, 5}
+a := []int64{0, 1, 2, 3, 4, 5}
 b := a[3:5]
-fmt.Println(a, b)
-//[1 2 3 4 5] [4 5]
+输出：[3 4]
+计算方式为从索引3开始数（5-3）个数
 
 //注意：切片是引用，1.两个赋值的切片指向同一个内存地址,操作一个变量的值也会改变另一个变量的值。
 b[0] = 11
