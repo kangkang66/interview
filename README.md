@@ -247,9 +247,9 @@ close: panic:send on closed channel
 ```
 slice = make([]int64, len, cap)
 
-//注意: [startIndex : length]. 
-0. 0 <= startIndex <= length <= len(slice)
-1.实际赋值的数据长度为length - startIndex
+//注意: [startIndex:endIndex]. 
+0. 0 <= startIndex <= endIndex <= len(slice)
+1.实际赋值的数据长度为endIndex - startIndex
 
 a := []int64{1, 2, 3, 4, 5}
 b := a[3:5]
